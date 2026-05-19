@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Detalhes</th>
+        </tr>
+        <tr th:each="produto : ${produtos}">
+            <td>[[${produto.nome}]]</td>
+            <td>[[${produto.descricao}]]</td>
+            <td>R$[[${produto.preco}]]</td>
+            <td><a th:href="@{/produto/{id}(id=${produto.id})}">Ver</a></td>
+        </tr>
+    </table>
+</body>
+</html>

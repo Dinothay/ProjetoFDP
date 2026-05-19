@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form th:action="@{/criarProduto}" th:method="POST">
+        <label for="name">Nome:</label>
+        <input type="text" name="nome" id="nome">
+        <br>
+        <label for="name">Descrição:</label>
+        <input type="text" name="descricao" id="descricao">
+        <br>
+        <label for="name">Preço:</label>
+        <input type="number" name="preco" id="preco" step="0.01">
+        <br>
+        <button type="submit">Criar</button>
+    </form>
+    <a href="/listaProduto">Ir para Lista de Produto</a>
+</body>
+</html>

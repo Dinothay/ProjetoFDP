@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form th:action="@{/produto/{id}/atualizar(id=${produto.id})}" th:method="POST">
+        <label for="name">Nome:</label>
+        <input th:placeholder="${produto.nome}" type="text" name="nome" id="nome">
+        <br>
+        <label for="name">Descrição:</label>
+        <input th:placeholder="${produto.descricao}" type="text" name="descricao" id="descricao">
+        <br>
+        <label for="name">Preço:</label>
+        <input th:placeholder="${produto.preco}" type="number" name="preco" id="preco" step="0.01">
+        <br>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
