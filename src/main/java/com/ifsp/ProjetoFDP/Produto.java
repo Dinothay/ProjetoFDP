@@ -30,10 +30,19 @@ public class Produto {
     @Column(name="preco")
     private Double preco;
 
+    @Column(name="image")
+    private String image;
+
     public Produto(String nome, String descricao, Double preco) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
+    }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
     }
     public Produto() {
     }
