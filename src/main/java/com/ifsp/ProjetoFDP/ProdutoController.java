@@ -26,7 +26,7 @@ public class ProdutoController {
     }
 
     @PostMapping("/criarProduto")
-    public String criarProduto(@RequestParam String nome, @RequestParam String descricao, @RequestParam double preco, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String criarProduto(@RequestParam String nome, @RequestParam String descricao, @RequestParam double preco, @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) {
         Produto produto = new Produto(nome, descricao, preco);
         if (!file.isEmpty()) {
             String imageName = fileStorageService.store(file);

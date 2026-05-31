@@ -42,6 +42,7 @@ public class FileStorageService {
 
         try {
             Path targetLocation = this.path.resolve(fileName);
+            System.out.println(targetLocation.toAbsolutePath());
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception ex) {
             throw new RuntimeException(

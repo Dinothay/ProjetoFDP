@@ -1,0 +1,45 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  position: relative;
+  margin: 0;
+}
+
+.top{
+    position: relative;
+    height: 70px;
+    width: 100vw;
+    background-color: rgb(255, 218, 243);
+    display: flex;
+    justify-content: space-around;
+}
+.it{
+   margin-top: 2vh;
+}
+.inp{
+    padding-left: 1rem;
+    padding-right: 3rem;
+    border-radius: 0.5rem;
+    border-color: rgb(58, 58, 58);
+    margin-bottom: 5px;
+}
+button{
+    margin-top: 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    background-color: rgb(255, 85, 170);
+    border-color: rgb(255, 85, 170);
+    color:rgb(255, 255, 255);
+}
+button:hover{
+    background-color: rgb(201, 65, 135);
+    border-color: rgb(201, 69, 135);
+    color:rgb(255, 255, 255);
+}
+.pg{
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-top: 25px;
+}
