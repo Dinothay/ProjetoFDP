@@ -6,37 +6,20 @@
 </head>
 <body>
     <h1>Seu carrinho</h1>
-    <table border="1" th:if="${carrinho.itens.size() > 0}">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-            <th>Total</th>
-            <th>Remover</th>
-        </tr>
-        <tr th:each="item : ${carrinho.itens}">
-            <td>[[${item.produto.id}]]</td>
-            <td>[[${item.produto.nome}]]</td>
-            <td>[[${item.produto.preco}]]</td>
-            <td><form th:action="@{/mais}" method="POST">
-                    <input type="hidden"name="id"th:value="${item.produto.id}">
-                    <button type="submit">+</button>
-                </form>
-                [[${item.quantidade}]]
-                <form th:action="@{/menos}" method="POST">
-                    <input type="hidden"name="id"th:value="${item.produto.id}">
-                    <button type="submit">-</button>
-                </form>
-            </td>
-            <td>[[${item.total}]]</td>
-            <td><form th:action="@{/remover}" method="POST">
-                    <input type="hidden"name="id"th:value="${item.produto.id}">
-                    <button type="submit">Remover</button>
-                </form>
-            </td>
-        </tr>
-    </table>
+    <div class="item" th:each="item : ${carrinho.itens}">
+
+    <img th:src="@{'/' + ${item.produto.image}}"
+         alt="Imagem">
+
+    <h3>[[${item.produto.nome}]]</h3>
+
+    <p>Preço: R$ [[${item.produto.preco}]]</p>
+
+    <p>Quantidade: [[${item.quantidade}]]</p>
+
+    <p>Total: R$ [[${item.total}]]</p>
+
+</div>
     <br>
     <table border="1"
            th:if="${carrinho.itens.size() > 0}">
