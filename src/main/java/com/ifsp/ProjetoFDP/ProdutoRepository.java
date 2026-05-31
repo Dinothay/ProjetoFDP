@@ -11,44 +11,52 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public class ProdutoRepository {
+
     @PersistenceContext
     private EntityManager em;
 
     @Transactional
-    public void save(Produto produto){
-        String sql = "INSERT INTO produto (nome,descricao,preco) VALUES (:nome, :descricao, :preco)";
+    public void save(Produto produto) {
+        String sql = "INSERT INTO produto (nome, descricao, preco, image)VALUES (:nome, :descricao, :preco, :image)";
+
         Query query = em.createNativeQuery(sql);
+
         query.setParameter("nome", produto.getNome());
         query.setParameter("descricao", produto.getDescricao());
         query.setParameter("preco", produto.getPreco());
+        query.setParameter("image", produto.getImage());
+
         query.executeUpdate();
     }
 
     public List<Produto> findAll() {
         String sql = "SELECT * FROM produto";
         Query q = em.createNativeQuery(sql, Produto.class);
-        List<Produto> produtos = q.getResultList();
-        return produtos;
+        return q.getResultList();
     }
+
     public Produto findById(int id) {
         String sql = "SELECT * FROM produto WHERE id = :id";
+
         Query q = em.createNativeQuery(sql, Produto.class);
         q.setParameter("id", id);
-        Produto produto = (Produto) q.getSingleResult();
-        return produto;
+
+        return (Produto) q.getSingleResult();
     }
+
     @Transactional
-    public void update(Produto produto){
-        String sql = "UPDATE produto SET nome = :nome, descricao = :descricao, preco = :preco WHERE id = :id";
-        Query query =em.createNativeQuery(sql);
+    public void update(Produto produto) {
+        String sql = "UPDATE produto SET nome = :nome, descricao = :descricao, preco = :preco, image = :image WHERE id = :id";
+        Query query = em.createNativeQuery(sql);
         query.setParameter("id", produto.getId());
         query.setParameter("nome", produto.getNome());
-        query.setParameter("descricao",produto.getDescricao());
+        query.setParameter("descricao", produto.getDescricao());
         query.setParameter("preco", produto.getPreco());
+        query.setParameter("image", produto.getImage());
         query.executeUpdate();
     }
     @Transactional
-    public void delete(int id){
+    public void delete(int id) {
         String sql = "DELETE FROM produto WHERE id = :id";
         Query query = em.createNativeQuery(sql);
         query.setParameter("id", id);

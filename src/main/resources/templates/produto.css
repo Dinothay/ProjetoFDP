@@ -1,0 +1,65 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.tabela{
+    width: 90vw;
+    margin: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.produto{
+    margin-top: 20px;
+
+    border-radius: 5px;
+
+    height: 430px;
+    width: 220px;
+
+    color: rgb(177, 31, 128);
+
+    border: solid;
+    border-color: rgb(255, 145, 218);
+
+    box-shadow: 5px 5px 0px 0px rgb(255, 145, 218);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 10px;
+}
+
+.produto h3{
+    margin: 10px 0;
+}
+
+.produto p{
+    text-align: center;
+}
+
+.compra{
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(177, 31, 128);
+    margin-top: auto;
+}
+
+.preco{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+img{
+    margin-top: 10px;
+
+    width: 150px;
+    height: 150px;
+
+    object-fit: cover;
+}
