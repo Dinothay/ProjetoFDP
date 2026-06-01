@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/produto.css}">
 </head>
+
 <body>
+
+    <div>
+        <h2>Usuário: [[${usuario.nome}]]</h2>
+        <h2 th:if="${usuario.gerente}">Cargo: Gerente</h2>
+        <h2 th:unless="${usuario.gerente}">Cargo: Cliente</h2>
+    </div>
+
     <h1>Lista de Produtos</h1>
+
     <div class="tabela">
 
-    <div class="produto" th:each="produto : ${produtos}">
+        <div class="produto" th:each="produto : ${produtos}">
+            <img th:src="@{'/' + ${produto.image}}" alt="Imagem">
+            <h3>[[${produto.nome}]]</h3>
+            <p class="preco">R$ [[${produto.preco}]]</p>
+            <form th:action="@{/produto/{id}(id=${produto.id})}" th:method="GET">
+                <button type="submit">Comprar</button>
+            </form>
+        </div>
 
-        <img th:src="@{'/' + ${produto.image}}" alt="Imagem">
-
-        <h3>[[${produto.nome}]]</h3>
-
-        <p>[[${produto.descricao}]]</p>
-
-        <p class="preco">R$ [[${produto.preco}]]</p>
-
-        <a class="compra" th:href="@{/produto/{id}(id=${produto.id})}">Ver detalhes</a>
     </div>
-</div>
+    <div th:if="${usuario.gerente}">
+        <a href="/produto">Cadastrar Produto</a>
+    </div>
+    <form action="/logout" method="GET">
+        <button type="submit">Sair da conta</button>
+    </form>
 </body>
+
 </html>

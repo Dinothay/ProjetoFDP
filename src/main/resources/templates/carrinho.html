@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Carrinho</title>
 </head>
+
 <body>
     <h1>Seu carrinho</h1>
     <div class="item" th:each="item : ${carrinho.itens}">
 
-    <img th:src="@{'/' + ${item.produto.image}}"
-         alt="Imagem">
+        <img th:src="@{'/' + ${item.produto.image}}" alt="Imagem">
 
-    <h3>[[${item.produto.nome}]]</h3>
+        <h3>[[${item.produto.nome}]]</h3>
 
-    <p>Preço: R$ [[${item.produto.preco}]]</p>
+        <p>Preço: R$ [[${item.produto.preco}]]</p>
 
-    <p>Quantidade: [[${item.quantidade}]]</p>
+        <p>Quantidade: [[${item.quantidade}]]</p>
 
-    <p>Total: R$ [[${item.total}]]</p>
+        <p>Total: R$ [[${item.total}]]</p>
 
-</div>
+    </div>
     <br>
-    <table border="1"
-           th:if="${carrinho.itens.size() > 0}">
+    <table border="1" th:if="${carrinho.itens.size() > 0}">
         <tr>
             <th>Total</th>
         </tr>
@@ -37,5 +37,9 @@
     </form>
     <br>
     <a href="/listaProduto">Voltar</a>
+    <form action="/logout" method="GET">
+        <button type="submit">Sair da conta</button>
+    </form>
 </body>
+
 </html>

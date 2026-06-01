@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class ProdutoController {
     @Autowired
@@ -26,7 +28,8 @@ public class ProdutoController {
     }
 
     @PostMapping("/criarProduto")
-    public String criarProduto(@RequestParam String nome, @RequestParam String descricao, @RequestParam double preco, @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String criarProduto(@RequestParam String nome, @RequestParam String descricao, @RequestParam double preco,
+            @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) {
         Produto produto = new Produto(nome, descricao, preco);
         if (!file.isEmpty()) {
             String imageName = fileStorageService.store(file);
@@ -37,9 +40,11 @@ public class ProdutoController {
     }
 
     @GetMapping("/listaProduto")
-    public String listarProdutos(Model model) {
+    public String listarProdutos(Model model, HttpSession session) {
         List<Produto> produtos = produtoRepository.findAll();
         model.addAttribute("produtos", produtos);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
         return "listaProdutos";
     }
 

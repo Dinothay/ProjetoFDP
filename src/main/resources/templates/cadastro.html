@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="cdlg">
+        <h3 class="t">Crie sua conta</h3>
+        <form method="POST" action="/criarUsuario">
+            <label class="lbl" for="nome">Nome: </label><br>
+            <input class="inp" placeholder="E-mail" type="text" name="nome"><br>
+            <label class="lbl" for="email">E-mail: </label><br>
+            <input class="inp" placeholder="E-mail" type="text" name="email"><br>
+            <label class="lbl" for="senha">Senha: </label><br>
+            <input class="inp" placeholder="Senha" type="password" name="senha"><br>
+            <label>Cargo:</label>
+            <select name="gerente">
+                <option value="false">Cliente</option>
+                <option value="true">Gerente</option>
+            </select>
+            <button type="submit">Criar conta</button>
+        </form>
+    </div>
+</body>
+
+</html>
