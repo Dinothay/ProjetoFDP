@@ -15,11 +15,20 @@
         <h3>[[${item.produto.nome}]]</h3>
 
         <p>Preço: R$ [[${item.produto.preco}]]</p>
-
+        <form th:action="@{/mais}" method="POST">
+            <input type="hidden" name="id" th:value="${item.produto.id}">
+            <button type="submit">+</button>
+        </form>
         <p>Quantidade: [[${item.quantidade}]]</p>
-
+        <form th:action="@{/menos}" method="POST">
+            <input type="hidden" name="id" th:value="${item.produto.id}">
+            <button type="submit">-</button>
+        </form>
         <p>Total: R$ [[${item.total}]]</p>
-
+        <form th:action="@{/remover}" method="POST">
+            <input type="hidden" name="id" th:value="${item.produto.id}">
+            <button type="submit">retirar</button>
+        </form>
     </div>
     <br>
     <table border="1" th:if="${carrinho.itens.size() > 0}">

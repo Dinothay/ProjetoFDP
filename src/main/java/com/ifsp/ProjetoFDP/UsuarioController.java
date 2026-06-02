@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpSession;
 public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
+    @Autowired
+    CarrinhoRepository carrinhoRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -24,25 +26,46 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public String verificarLogin(@RequestParam String email, @RequestParam String senha, HttpSession session) {
-        Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario != null &&
-                usuario.getSenha().equals(senha)) {
-            session.setAttribute("usuario", usuario);
-            return "redirect:/listaProduto";
-        }
-        return "redirect:/login";
+public String verificarLogin(@RequestParam String email,
+                             @RequestParam String senha,
+                             HttpSession session) {
+
+    Usuario usuario = usuarioRepository.findByEmail(email);
+
+    if (usuario != null && usuario.getSenha().equals(senha)) {
+
+        int carrinhoId = usuarioRepository.findCarrinhoIdByEmail(email);
+
+        Carrinho carrinho = carrinhoRepository.findById(carrinhoId);
+
+        usuario.setCarrinho(carrinho);
+
+        session.setAttribute("usuario", usuario);
+
+        return "redirect:/listaProduto";
     }
 
+    return "redirect:/login";
+}
+
     @PostMapping("/criarUsuario")
-    public String criarUsuario(@RequestParam String nome, @RequestParam String email, @RequestParam String senha,
-            @RequestParam boolean gerente) {
+    public String criarUsuario(@RequestParam String nome,@RequestParam String email,@RequestParam String senha,@RequestParam boolean gerente) {
+
         Usuario usuario = new Usuario();
+
         usuario.setNome(nome);
         usuario.setEmail(email);
         usuario.setSenha(senha);
         usuario.setGerente(gerente);
+
+        int carrinhoId = carrinhoRepository.save();
+
+        Carrinho carrinho = carrinhoRepository.findById(carrinhoId);
+
+        usuario.setCarrinho(carrinho);
+
         usuarioRepository.save(usuario);
+
         return "redirect:/login";
     }
 

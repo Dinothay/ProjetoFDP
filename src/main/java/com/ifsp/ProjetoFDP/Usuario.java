@@ -1,19 +1,22 @@
 package com.ifsp.ProjetoFDP;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
 
-    @Transient
-    private Carrinho carrinho = new Carrinho();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "carrinho_id")
+    private Carrinho carrinho;
 
     public Carrinho getCarrinho() {
         return carrinho;

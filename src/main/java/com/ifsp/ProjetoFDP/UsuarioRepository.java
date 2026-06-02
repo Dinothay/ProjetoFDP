@@ -17,12 +17,13 @@ public class UsuarioRepository {
 
     @Transactional
     public void save(Usuario usuario) {
-        String sql = "INSERT INTO usuario (nome, email, senha, gerente) VALUES (:nome, :email, :senha, :gerente)";
+        String sql = "INSERT INTO usuario (nome, email, senha, gerente, carrinho_id) VALUES (:nome, :email, :senha, :gerente, :carrinho_id)";
         Query query = em.createNativeQuery(sql);
         query.setParameter("nome", usuario.getNome());
         query.setParameter("email", usuario.getEmail());
         query.setParameter("senha", usuario.getSenha());
         query.setParameter("gerente", usuario.isGerente());
+        query.setParameter("carrinho_id", usuario.getCarrinho().getId());
         query.executeUpdate();
     }
 
@@ -52,12 +53,13 @@ public class UsuarioRepository {
 
     @Transactional
     public void update(Usuario usuario) {
-        String sql = "UPDATE usuario SET nome = :nome, email = :email, senha = :senha, gerente = :gerente WHERE id = :id";
+        String sql = "UPDATE usuario SET nome = :nome, email = :email, senha = :senha, gerente = :gerente, carrinho_id = :carrinho_id WHERE id = :id";
         Query query = em.createNativeQuery(sql);
         query.setParameter("id", usuario.getId());
         query.setParameter("nome", usuario.getNome());
         query.setParameter("email", usuario.getEmail());
         query.setParameter("senha", usuario.getSenha());
+        query.setParameter("carrinho_id", usuario.getCarrinho().getId());
         query.setParameter("gerente", usuario.isGerente());
         query.executeUpdate();
     }
@@ -69,4 +71,18 @@ public class UsuarioRepository {
         query.setParameter("id", id);
         query.executeUpdate();
     }
+
+    public int findCarrinhoIdByEmail(String email) {
+
+    String sql =
+        "SELECT carrinho_id FROM usuario WHERE email = :email";
+
+    Query query = em.createNativeQuery(sql);
+
+    query.setParameter("email", email);
+
+    Number resultado = (Number) query.getSingleResult();
+
+    return resultado.intValue();
+}
 }

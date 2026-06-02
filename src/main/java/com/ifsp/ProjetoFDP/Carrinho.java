@@ -3,23 +3,18 @@ package com.ifsp.ProjetoFDP;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "carrinho")
 public class Carrinho {
-    private Double valor;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ItemCarrinho> itens = new ArrayList<>();
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-    public Carrinho(Double valor, List<ItemCarrinho> itens) {
-        this.valor = valor;
-        this.itens = itens;
-    }
 
     public Carrinho() {
     }
@@ -42,9 +37,11 @@ public class Carrinho {
 
     public Double getTotal() {
         double total = 0;
-        for (ItemCarrinho item : itens){
+
+        for (ItemCarrinho item : itens) {
             total += item.getTotal();
         }
+
         return total;
     }
 }

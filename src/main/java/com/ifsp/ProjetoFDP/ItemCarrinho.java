@@ -1,31 +1,34 @@
 package com.ifsp.ProjetoFDP;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "item_carrinho")
 public class ItemCarrinho {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
     private Produto produto;
-    private Double preco;
+
+    @ManyToOne
+    @JoinColumn(name = "carrinho_id")
+    private Carrinho carrinho;
+
     private int quantidade;
-    private Double total;
-
-    public Double getTotal() {
-        return preco * quantidade;
-    }
-
-    public ItemCarrinho(Produto produto, Double preco, int quantidade) {
-        this.produto = produto;
-        this.preco = preco;
-        this.quantidade = quantidade;
-    }
 
     public ItemCarrinho() {
     }
 
-    public Double getPreco() {
-        return preco;
+    public Double getTotal() {
+        return produto.getPreco() * quantidade;
     }
 
-    public void setPreco(Double preco) {
-        this.preco = preco;
+    public int getId() {
+        return id;
     }
 
     public Produto getProduto() {
@@ -34,6 +37,14 @@ public class ItemCarrinho {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public Carrinho getCarrinho() {
+        return carrinho;
+    }
+
+    public void setCarrinho(Carrinho carrinho) {
+        this.carrinho = carrinho;
     }
 
     public int getQuantidade() {
