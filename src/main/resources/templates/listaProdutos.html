@@ -6,10 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/produto.css}">
+    <link rel="stylesheet" th:href="@{/css/tela.css}">
 </head>
 
 <body>
-
+    <div class="top">
+            <div class="it">
+                <form method="POST" action="">
+                    <button class="pg" type="submit"></button>
+                </form>
+            </div>
+            <div class="it">
+                <form method="POST" action="">
+                    <input class="bs" placeholder="O que você precisa?" type="search" name="busca">
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
     <div>
         <h2>Usuário: [[${usuario.nome}]]</h2>
         <h2 th:if="${usuario.gerente}">Cargo: Gerente</h2>
@@ -30,6 +43,9 @@
         </div>
 
     </div>
+    <form action="/carrinho" method="GET">
+        <button type="submit">Ver carrinho</button>
+    </form>
     <div th:if="${usuario.gerente}">
         <a href="/produto">Cadastrar Produto</a>
     </div>

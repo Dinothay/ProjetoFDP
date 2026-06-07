@@ -1,0 +1,70 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  display: flex;
+}
+.tabela{
+    margin-top: 1em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom:solid;
+    border-top: solid;
+    border-color: rgb(255, 145, 218);
+}
+tr{
+    margin-top: 15%;
+    border-radius: 5px;
+    height: 150px;
+    width: 80%;
+    
+}
+.nome1{
+    font-size: 1.2em;
+    padding-left: 50px;
+}
+.preco{
+    margin-top: 0px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-weight: bold; 
+    color: rgb(177, 31, 128);
+}
+.mm{
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.mn{
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.total{
+    display: flex;
+    justify-content: center;
+}
+.nome2{
+    font-size: 1.2em;
+    padding-left: 50px;
+    font-weight: bold;
+}
+.valor{
+    font-size: 1.2em;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-weight: bold;
+    color: rgb(177, 31, 128);
+}
+.fn{
+    display: flex;
+    justify-content: center;
+    border-bottom:solid;
+    border-color: rgb(255, 145, 218);
+    padding-bottom: 1.5em;
+}
+.fnc{
+    font-size: 1.5em;
+}
+img{
+    margin-top: 10%;
+    height: 100px; 
+}

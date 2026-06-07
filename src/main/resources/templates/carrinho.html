@@ -4,51 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Carrinho</title>
+    <link rel="stylesheet" th:href="@{/css/carrinho.css}">
+    <link rel="stylesheet" th:href="@{/css/tela.css}">
 </head>
 
 <body>
-    <h1>Seu carrinho</h1>
-    <div class="item" th:each="item : ${carrinho.itens}">
+    <div>
+        <div class="top">
+            <div class="it">
+                <form method="POST" action="">
+                    <button class="pg" type="submit"></button>
+                </form>
+            </div>
+            <div class="it">
+                <form method="POST" action="">
+                    <input class="bs" placeholder="O que você precisa?" type="search" name="busca">
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
 
-        <img th:src="@{'/' + ${item.produto.image}}" alt="Imagem">
+        <div class="tabela">
+            <table>
+                <tr th:each="item : ${carrinho.itens}">
+                    <td><img th:src="${'/' + item.produto.image}" alt="Imagem"></td>
+                    <div class="txt">
+                        <td>
+                            <div class="nome1">
+                                [[${item.produto.nome}]]
+                            </div>
+                        </td>
+                        <td>
+                            <div class="preco">
+                                Valor: R$ [[${item.produto.preco}]]
+                            </div>
+                        </td>
+                        <td>
+                            <div class="quantidade">
+                                <form th:action="@{/mais}" method="POST">
+                                    <input type="hidden" name="id" th:value="${item.produto.id}">
+                                    <button class="mm" type="submit">+</button>
+                                </form>
+                                [[${item.quantidade}]]
+                                <form th:action="@{/menos}" method="POST">
+                                    <input type="hidden" name="id" th:value="${item.produto.id}">
+                                    <button class="mn" type="submit">-</button>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <form th:action="@{/remover}" method="POST">
+                                <input type="hidden" name="id" th:value="${item.produto.id}">
+                                <button class="botao" type="submit">Remover</button>
+                            </form>
+                        </td>
+                    </div>
+                </tr>
+            </table>
+            <h3 th:if="${carrinho.itens.size() == 0}">O carrinho está vazio</h3>
+        </div>
+        <div class="total">
+            <div class="nome2">
+                <p>Total:</p>
+            </div>
+            <div class="valor">
+                <p>R$[[${total}]]</p>
+            </div>
+            <div class="limpar">
+                <form th:action="@{/limpar}" method="POST">
+                    <button type="submit">Limpar Carrinho</button>
+                </form>
+            </div>
 
-        <h3>[[${item.produto.nome}]]</h3>
-
-        <p>Preço: R$ [[${item.produto.preco}]]</p>
-        <form th:action="@{/mais}" method="POST">
-            <input type="hidden" name="id" th:value="${item.produto.id}">
-            <button type="submit">+</button>
+        </div>
+        <div class="fn">
+            <form action="">
+                <button class="fnc">Finalizar compra</button>
+            </form>
+        </div>
+        
+        <a href="/listaProduto">Voltar</a>
+        <form action="/logout" method="GET">
+            <button type="submit">Sair da conta</button>
         </form>
-        <p>Quantidade: [[${item.quantidade}]]</p>
-        <form th:action="@{/menos}" method="POST">
-            <input type="hidden" name="id" th:value="${item.produto.id}">
-            <button type="submit">-</button>
-        </form>
-        <p>Total: R$ [[${item.total}]]</p>
-        <form th:action="@{/remover}" method="POST">
-            <input type="hidden" name="id" th:value="${item.produto.id}">
-            <button type="submit">retirar</button>
-        </form>
-    </div>
-    <br>
-    <table border="1" th:if="${carrinho.itens.size() > 0}">
-        <tr>
-            <th>Total</th>
-        </tr>
-        <tr>
-            <td>[[${total}]]</td>
-        </tr>
-    </table>
-    <h3 th:if="${carrinho.itens.size() == 0}">O carrinho está vazio</h3>
-    <br>
-    <form th:action="@{/limpar}" method="POST">
-        <button type="submit">Limpar Carrinho</button>
-    </form>
-    <br>
-    <a href="/listaProduto">Voltar</a>
-    <form action="/logout" method="GET">
-        <button type="submit">Sair da conta</button>
-    </form>
 </body>
 
 </html>
