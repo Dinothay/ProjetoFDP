@@ -11,18 +11,23 @@
 
 <body>
     <div class="top">
-            <div class="it">
-                <form method="POST" action="">
-                    <button class="pg" type="submit"></button>
-                </form>
-            </div>
-            <div class="it">
-                <form method="POST" action="">
-                    <input class="bs" placeholder="O que você precisa?" type="search" name="busca">
-                    <button type="submit">Buscar</button>
-                </form>
-            </div>
+        <div class="it">
+            <form method="POST" action="">
+                <button class="pg" type="submit"></button>
+            </form>
         </div>
+        <div class="it">
+            <form th:action="@{/listaProduto}" method="GET">
+                <input class="bs" placeholder="O que você precisa?" type="search" name="busca">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+        <div class="it">
+            <form th:action="@{/listaProduto}" method="GET">
+                <button type="submit">Limpar Busca</button>
+            </form>
+        </div>
+    </div>
     <div>
         <h2>Usuário: [[${usuario.nome}]]</h2>
         <h2 th:if="${usuario.gerente}">Cargo: Gerente</h2>
@@ -41,17 +46,43 @@
                 <button type="submit">Comprar</button>
             </form>
         </div>
+    </div>
+    <div class="paginacao" th:if="${paginaAtual != null}">
+
+        <form th:if="${paginaAtual > 1}" action="/listaProduto" method="GET">
+            <input type="hidden" name="pagina" th:value="${paginaAtual - 1}">
+            <input type="hidden" name="busca" th:value="${busca}">
+            <button type="submit"><</button>
+        </form>
+
+        <span th:each="i : ${#numbers.sequence(1, totalPaginas)}">
+
+            <a th:href="@{/listaProduto(pagina=${i}, busca=${busca})}" th:text="${i}"
+                th:style="${i == paginaAtual ? 'font-weight:bold; color:red;' : ''}">
+            </a>
+
+        </span>
+
+        <form th:if="${paginaAtual < totalPaginas}" action="/listaProduto" method="GET">
+            <input type="hidden" name="pagina" th:value="${paginaAtual + 1}">
+            <input type="hidden" name="busca" th:value="${busca}">
+            <button type="submit">></button>
+        </form>
 
     </div>
     <form action="/carrinho" method="GET">
         <button type="submit">Ver carrinho</button>
     </form>
-    <div th:if="${usuario.gerente}">
-        <a href="/produto">Cadastrar Produto</a>
-    </div>
+
     <form action="/logout" method="GET">
         <button type="submit">Sair da conta</button>
     </form>
+
+    <form th:if="${usuario.gerente}" action="/produto" method="GET">
+        <button type="submit">Cadastrar Produto</button>
+    </form>
+
+
 </body>
 
 </html>

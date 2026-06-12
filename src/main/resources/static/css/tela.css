@@ -43,3 +43,37 @@ button:hover{
     padding-right: 13px;
     padding-top: 25px;
 }
+.paginacao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.paginacao form{
+    margin: 0;
+}
+
+.paginacao button{
+    margin: 0;
+}
+
+.paginacao a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    text-decoration: none;
+    border: 1px solid rgb(255, 85, 170);
+    border-radius: 5px;
+    color: rgb(255, 85, 170);
+}
+
+.paginacao a:hover{
+    background-color: rgb(255, 85, 170);
+    color: white;
+}
