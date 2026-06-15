@@ -29,9 +29,9 @@
         </div>
     </div>
     <div>
-        <h2>Usuário: [[${usuario.nome}]]</h2>
-        <h2 th:if="${usuario.gerente}">Cargo: Gerente</h2>
-        <h2 th:unless="${usuario.gerente}">Cargo: Cliente</h2>
+        <h2 th:if="${usuario != null}">Usuário: [[${usuario.nome}]]</h2>
+        <h2 th:if="${usuario != null and usuario.gerente}">Cargo: Gerente</h2>
+        <h2 th:if="${usuario != null and !usuario.gerente}">Cargo: Cliente</h2>
     </div>
 
     <h1>Lista de Produtos</h1>
@@ -52,7 +52,8 @@
         <form th:if="${paginaAtual > 1}" action="/listaProduto" method="GET">
             <input type="hidden" name="pagina" th:value="${paginaAtual - 1}">
             <input type="hidden" name="busca" th:value="${busca}">
-            <button type="submit"><</button>
+            <button type="submit">
+                << /button>
         </form>
 
         <span th:each="i : ${#numbers.sequence(1, totalPaginas)}">
@@ -78,7 +79,7 @@
         <button type="submit">Sair da conta</button>
     </form>
 
-    <form th:if="${usuario.gerente}" action="/produto" method="GET">
+    <form th:if="${usuario != null and usuario.gerente}" action="/produto" method="GET">
         <button type="submit">Cadastrar Produto</button>
     </form>
 

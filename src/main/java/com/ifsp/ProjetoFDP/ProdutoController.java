@@ -40,19 +40,20 @@ public class ProdutoController {
     }
 
     @GetMapping("/listaProduto")
-    public String listarProdutos(Model model, HttpSession session, @RequestParam(defaultValue = "1") int pagina,@RequestParam(required = false) String busca) {
+    public String listarProdutos(Model model, HttpSession session, @RequestParam(defaultValue = "1") int pagina,
+            @RequestParam(required = false) String busca) {
         int tamanho = 5;
         List<Produto> produtos;
         int totalProdutos;
         if (busca != null && !busca.isBlank()) {
-            produtos = produtoRepository.findByNomePage(busca,pagina,tamanho);
+            produtos = produtoRepository.findByNomePage(busca, pagina, tamanho);
             totalProdutos = produtoRepository.countByNome(busca);
             model.addAttribute("busca", busca);
         } else {
-            produtos = produtoRepository.findPage(pagina,tamanho);
+            produtos = produtoRepository.findPage(pagina, tamanho);
             totalProdutos = produtoRepository.count();
         }
-        int totalPaginas = (int) Math.ceil((double) totalProdutos / tamanho);
+        int totalPaginas = Math.max(1, (int) Math.ceil((double) totalProdutos / tamanho))   ;
         if (pagina < 1) {
             pagina = 1;
         }
@@ -68,10 +69,12 @@ public class ProdutoController {
     }
 
     @GetMapping("/produto/{id}")
-    public String show(@PathVariable int id, Model model) {
+    public String show(@PathVariable int id,Model model,HttpSession session) {
         Produto produto = produtoRepository.findById(id);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
         model.addAttribute("produto", produto);
-        return "detalhesProduto.html";
+        model.addAttribute("usuario", usuario);
+        return "detalhesProduto";
     }
 
     @GetMapping("/produto/{id}/editar")

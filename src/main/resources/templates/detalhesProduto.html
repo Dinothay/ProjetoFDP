@@ -45,12 +45,21 @@
                             <button class="botao" type="submit">Adicionar ao carrinho</button>
                         </form>
                     </li>
+                    <li>
+                        <form th:if="${usuario != null and usuario.gerente}" th:action="@{/produto/{id}/deletar(id=${produto.id})}" method="POST">
+                            <button class="botao" type="submit">Excluir produto</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-    <h3><a href="/listaProduto">Ir para lista de produto</a></h3>
-    <h3><a href="/carrinho">Ver carrinho</a></h3>
+    <form action="/listaProduto" method="GET">
+        <button type="submit">Ir para lista de produto</button>
+    </form>
+   <form action="/carrinho" method="GET">
+        <button type="submit">Ver carrinho</button>
+    </form>
     <form action="/logout" method="GET">
         <button type="submit">Sair da conta</button>
     </form>
