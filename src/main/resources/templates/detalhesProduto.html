@@ -4,29 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Detalhes do Produto</title>
+    <link rel="stylesheet" th:href="@{/css/detalhes.css}">
+    <link rel="stylesheet" th:href="@{/css/tela.css}">
 </head>
 
 <body>
-    <h1>Detalhes do Produto</h1>
-    <table border="1">
-        <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-        </tr>
-        <tr>
-            <td>[[${produto.nome}]]</td>
-            <td>[[${produto.descricao}]]</td>
-            <td>R$[[${produto.preco}]]</td>
-        </tr>
-    </table>
-    <form th:action="@{/adicionar}" method="POST">
-        <input type="hidden" name="id" th:value="${produto.id}">
-        <button type="submit">Adicionar ao carrinho</button>
-    </form>
+    <div class="produtos">
+        <div class="top">
+            <div class="it">
+                <form method="POST" action="">
+                    <button class="pg" type="submit"></button>
+                </form>
+            </div>
+            <div class="it">
+                <form th:action="@{/buscar}" method="POST">
+                    <input class="bs" placeholder="O que você precisa?" type="search" name="busca">
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="detalhes">
+            <div class="imag">
+                <div><img th:src="@{'/' + ${produto.image}}" alt="Imagem"></div>
+            </div>
+            <div class="txt">
+                <ul>
+                    <li class="titulo">[[${produto.nome}]]</li>
+                    <li class="valor">R$ [[${produto.preco}]]</li>
+                    <li class="descricao">Descrição: [[${produto.descricao}]]</li>
+                    <li>
+                        <form th:action="@{/produto/{id}(id=${produto.id})}" th:method="GET">
+                            <button class="botao" type="submit">Comprar</button>
+                        </form>
+                    </li>
+                    <li>
+                        <form th:action="@{/adicionar}" method="POST">
+                            <input type="hidden" name="id" th:value="${produto.id}">
+                            <button class="botao" type="submit">Adicionar ao carrinho</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <h3><a href="/listaProduto">Ir para lista de produto</a></h3>
     <h3><a href="/carrinho">Ver carrinho</a></h3>
+    <form action="/logout" method="GET">
+        <button type="submit">Sair da conta</button>
+    </form>
 </body>
 
 </html>

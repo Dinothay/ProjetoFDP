@@ -5,21 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>html login/cadastro</title>
-    <link rel="stylesheet" href="cadastroLogin.css">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 
 <body>
     <div class="cdlg">
         <h3 class="t">Entrar</h3>
-        <form method="POST" action="">
-            <label class="lbl" for="email"> E-mail: </label><br>
+        <form method="POST" action="/login">
+            <label class="lbl" for="email">E-mail: </label><br>
             <input class="inp" placeholder="E-mail" type="text" name="email"><br>
             <label class="lbl" for="senha">Senha: </label><br>
-            <input class="inp" placeholder="Senha" type="text" name="senha"><br>
+            <input class="inp" placeholder="Senha" type="password" name="senha"><br>
             <button type="submit">Entrar</button>
         </form>
-
-        <a class="crl" href="">Não possui uma conta? Cadastre-se</a>
+        <a class="crl" th:href="@{/cadastro}">Não possui uma conta? Cadastre-se</a>
     </div>
 </body>
 

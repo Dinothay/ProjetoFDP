@@ -55,11 +55,54 @@ public class ProdutoRepository {
         query.setParameter("image", produto.getImage());
         query.executeUpdate();
     }
+
     @Transactional
     public void delete(int id) {
         String sql = "DELETE FROM produto WHERE id = :id";
         Query query = em.createNativeQuery(sql);
         query.setParameter("id", id);
         query.executeUpdate();
+    }
+
+    public List<Produto> findByNome(String nome) {
+        String sql = "SELECT * FROM produto WHERE nome LIKE :nome";
+        Query query = em.createNativeQuery(sql, Produto.class);
+        query.setParameter("nome", "%" + nome + "%");
+        return query.getResultList();
+    }
+
+    public List<Produto> findPage(int pagina, int tamanho) {
+        int inicio = (pagina - 1) * tamanho;
+        String sql = "SELECT *FROM produto LIMIT :tamanho OFFSET :inicio";
+        Query query = em.createNativeQuery(sql, Produto.class);
+        query.setParameter("tamanho", tamanho);
+        query.setParameter("inicio", inicio);
+        return query.getResultList();
+    }
+
+    public List<Produto> findByNomePage(String nome, int pagina, int tamanho) {
+
+        int inicio = (pagina - 1) * tamanho;
+        String sql = "SELECT * FROM produto WHERE nome LIKE :nome LIMIT :tamanho OFFSET :inicio ";
+        Query query = em.createNativeQuery(sql, Produto.class);
+        query.setParameter("nome", "%" + nome + "%");
+        query.setParameter("tamanho", tamanho);
+        query.setParameter("inicio", inicio);
+        return query.getResultList();
+    }
+
+    public int count() {
+        String sql = "SELECT COUNT(*) FROM produto";
+        Query query = em.createNativeQuery(sql);
+        Number resultado = (Number) query.getSingleResult();
+        return resultado.intValue();
+    }
+
+    public int countByNome(String nome) {
+        String sql = "SELECT COUNT(*) FROM produto WHERE nome LIKE :nome";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter("nome", "%" + nome + "%");
+        Number resultado = (Number) query.getSingleResult();
+        return resultado.intValue();
     }
 }

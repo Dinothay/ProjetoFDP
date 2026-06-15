@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class ProdutoController {
     @Autowired
@@ -26,7 +28,8 @@ public class ProdutoController {
     }
 
     @PostMapping("/criarProduto")
-    public String criarProduto(@RequestParam String nome, @RequestParam String descricao, @RequestParam double preco, @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String criarProduto(@RequestParam String nome, @RequestParam String descricao, @RequestParam double preco,
+            @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) {
         Produto produto = new Produto(nome, descricao, preco);
         if (!file.isEmpty()) {
             String imageName = fileStorageService.store(file);
@@ -37,9 +40,30 @@ public class ProdutoController {
     }
 
     @GetMapping("/listaProduto")
-    public String listarProdutos(Model model) {
-        List<Produto> produtos = produtoRepository.findAll();
+    public String listarProdutos(Model model, HttpSession session, @RequestParam(defaultValue = "1") int pagina,@RequestParam(required = false) String busca) {
+        int tamanho = 5;
+        List<Produto> produtos;
+        int totalProdutos;
+        if (busca != null && !busca.isBlank()) {
+            produtos = produtoRepository.findByNomePage(busca,pagina,tamanho);
+            totalProdutos = produtoRepository.countByNome(busca);
+            model.addAttribute("busca", busca);
+        } else {
+            produtos = produtoRepository.findPage(pagina,tamanho);
+            totalProdutos = produtoRepository.count();
+        }
+        int totalPaginas = (int) Math.ceil((double) totalProdutos / tamanho);
+        if (pagina < 1) {
+            pagina = 1;
+        }
+        if (pagina > totalPaginas && totalPaginas > 0) {
+            pagina = totalPaginas;
+        }
         model.addAttribute("produtos", produtos);
+        model.addAttribute("paginaAtual", pagina);
+        model.addAttribute("totalPaginas", totalPaginas);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
         return "listaProdutos";
     }
 
@@ -72,5 +96,17 @@ public class ProdutoController {
     public String excluirProduto(@PathVariable int id) {
         produtoRepository.delete(id);
         return "redirect:/listaProduto";
+    }
+
+    @PostMapping("/buscar")
+    public String buscarProduto(@RequestParam String busca, Model model, HttpSession session) {
+        List<Produto> produtos = produtoRepository.findByNome(busca);
+        model.addAttribute("produtos", produtos);
+        model.addAttribute("paginaAtual", 1);
+        model.addAttribute("temProxima", false);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
+
+        return "listaProdutos";
     }
 }

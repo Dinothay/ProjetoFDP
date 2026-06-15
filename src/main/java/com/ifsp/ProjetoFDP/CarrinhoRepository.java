@@ -11,46 +11,38 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public class CarrinhoRepository {
+
     @PersistenceContext
     private EntityManager em;
-    
+
     @Transactional
-    public void save(Carrinho carrinho){
-        String sql = "INSERT INTO carrinho (valor) VALUES (:valor)";
+    public int save() {
+        String sql = "INSERT INTO carrinho () VALUES ()";
         Query query = em.createNativeQuery(sql);
-        query.setParameter("valor", carrinho.getValor());
         query.executeUpdate();
+
+        Query q = em.createNativeQuery("SELECT MAX(id) FROM carrinho");
+        return ((Number) q.getSingleResult()).intValue();
     }
 
     public List<Carrinho> findAll() {
         String sql = "SELECT * FROM carrinho";
         Query q = em.createNativeQuery(sql, Carrinho.class);
-        List<Carrinho> carrinhos = q.getResultList();
-        return carrinhos;
+        return q.getResultList();
     }
 
     public Carrinho findById(int id) {
         String sql = "SELECT * FROM carrinho WHERE id = :id";
         Query q = em.createNativeQuery(sql, Carrinho.class);
         q.setParameter("id", id);
-        Carrinho carrinho = (Carrinho) q.getSingleResult();
-        return carrinho;
+        return (Carrinho) q.getSingleResult();
     }
 
     @Transactional
-    public void update(Carrinho carrinho){
-        String sql = "UPDATE carrinho SET valor = :valor WHERE id = :id";
-        Query query = em.createNativeQuery(sql);
-        query.setParameter("id", carrinho.getId());
-        query.setParameter("valor", carrinho.getValor());
-        query.executeUpdate();
-    }
-
-    @Transactional
-    public void delete(int id){
+    public void delete(int id) {
         String sql = "DELETE FROM carrinho WHERE id = :id";
-        Query query = em.createNativeQuery(sql);
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Query q = em.createNativeQuery(sql);
+        q.setParameter("id", id);
+        q.executeUpdate();
     }
 }
