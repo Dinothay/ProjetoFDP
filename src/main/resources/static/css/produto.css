@@ -63,3 +63,13 @@ img{
 
     object-fit: cover;
 }
+.produto form{
+    width: 100%;
+    margin-top: 8px;
+}
+
+.produto form button{
+    width: 90%;
+    display: block;
+    margin: auto;
+}

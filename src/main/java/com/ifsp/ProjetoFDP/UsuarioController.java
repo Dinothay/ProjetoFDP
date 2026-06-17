@@ -26,19 +26,20 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-public String verificarLogin(@RequestParam String email,@RequestParam String senha,HttpSession session) {
-    Usuario usuario = usuarioRepository.findByEmail(email);
-    if (usuario != null && usuario.getSenha().equals(senha)) {
-        int carrinhoId = usuarioRepository.findCarrinhoIdByEmail(email);
-        Carrinho carrinho = carrinhoRepository.findById(carrinhoId);
-        usuario.setCarrinho(carrinho);
-        session.setAttribute("usuario", usuario);
-        return "redirect:/listaProduto";
+    public String verificarLogin(@RequestParam String email, @RequestParam String senha, HttpSession session) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            int carrinhoId = usuarioRepository.findCarrinhoIdByEmail(email);
+            Carrinho carrinho = carrinhoRepository.findById(carrinhoId);
+            usuario.setCarrinho(carrinho);
+            session.setAttribute("usuario", usuario);
+            return "redirect:/listaProduto";
+        }
+        return "redirect:/login";
     }
-    return "redirect:/login";
-}
+
     @PostMapping("/criarUsuario")
-    public String criarUsuario(@RequestParam String nome,@RequestParam String email,@RequestParam String senha) {
+    public String criarUsuario(@RequestParam String nome, @RequestParam String email, @RequestParam String senha) {
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
         usuario.setEmail(email);

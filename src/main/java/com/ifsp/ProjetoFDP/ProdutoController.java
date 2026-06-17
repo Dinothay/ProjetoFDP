@@ -41,10 +41,13 @@ public class ProdutoController {
 
     @GetMapping("/listaProduto")
     public String listarProdutos(Model model, HttpSession session, @RequestParam(defaultValue = "1") int pagina,
-            @RequestParam(required = false) String busca) {
+            @RequestParam(required = false) String busca, @RequestParam(required = false) String compra) {
         int tamanho = 5;
         List<Produto> produtos;
         int totalProdutos;
+        if ("sucesso".equals(compra)) {
+            model.addAttribute("mensagem", "Compra realizada com sucesso!");
+        }
         if (busca != null && !busca.isBlank()) {
             produtos = produtoRepository.findByNomePage(busca, pagina, tamanho);
             totalProdutos = produtoRepository.countByNome(busca);
@@ -53,7 +56,7 @@ public class ProdutoController {
             produtos = produtoRepository.findPage(pagina, tamanho);
             totalProdutos = produtoRepository.count();
         }
-        int totalPaginas = Math.max(1, (int) Math.ceil((double) totalProdutos / tamanho))   ;
+        int totalPaginas = Math.max(1, (int) Math.ceil((double) totalProdutos / tamanho));
         if (pagina < 1) {
             pagina = 1;
         }
@@ -69,7 +72,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/produto/{id}")
-    public String show(@PathVariable int id,Model model,HttpSession session) {
+    public String show(@PathVariable int id, Model model, HttpSession session) {
         Produto produto = produtoRepository.findById(id);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         model.addAttribute("produto", produto);
@@ -111,5 +114,19 @@ public class ProdutoController {
         model.addAttribute("usuario", usuario);
 
         return "listaProdutos";
+    }
+
+    @PostMapping("/comprarProduto")
+    public String comprarAgora(@RequestParam int id, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Produto produto = produtoRepository.findById(id);
+
+        return "redirect:/listaProduto?compra=sucesso";
     }
 }

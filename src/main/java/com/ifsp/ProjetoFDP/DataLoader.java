@@ -33,7 +33,7 @@ public class DataLoader implements CommandLineRunner {
                 "Ração para cachorro adulto",
                 80.0
             );
-            p2.setImage("9a61d6f9-3152-48ac-b12f-45bcfcbf8f7f.jpg");
+            p2.setImage("21994706-9fb8-4930-8438-538ecb254214.webp");
 
             Produto p3 = new Produto(
                 "Ração Cat",
