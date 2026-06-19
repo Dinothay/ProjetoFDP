@@ -4,17 +4,35 @@ body{
   position: relative;
   margin: 0;
 }
-
 .top{
-    position: relative;
     height: 70px;
-    width: 100vw;
     background-color: rgb(255, 218, 243);
+
     display: flex;
     justify-content: space-around;
+    align-items: center;   
 }
 .it{
-   margin-top: 2vh;
+    margin-top: 0;         
+    display: flex;
+    align-items: center;
+}
+.top img{
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+
+    transform: scale(2.5); /* aumenta 50% */
+}
+.it a{
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden; /* esconde o que passar da caixa */
 }
 .inp{
     padding-left: 1rem;
@@ -76,4 +94,23 @@ button:hover{
 .paginacao a:hover{
     background-color: rgb(255, 85, 170);
     color: white;
+}
+.tituloPagina{
+    text-align: center;
+    color: rgb(177, 31, 128);
+    margin: 30px 0;
+}
+.sucesso{
+    width: fit-content;
+    margin: 20px auto;
+
+    background-color: rgb(255, 218, 243);
+    color: rgb(177, 31, 128);
+
+    padding: 12px 20px;
+
+    border: 1px solid rgb(255, 85, 170);
+    border-radius: 8px;
+
+    font-weight: bold;
 }

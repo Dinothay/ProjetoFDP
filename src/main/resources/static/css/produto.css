@@ -55,11 +55,21 @@ body{
     margin-bottom: 10px;
 }
 
-img{
+.tabela img{
     margin-top: 10px;
 
     width: 150px;
     height: 150px;
 
     object-fit: cover;
+}
+.produto form{
+    width: 100%;
+    margin-top: 8px;
+}
+
+.produto form button{
+    width: 90%;
+    display: block;
+    margin: auto;
 }

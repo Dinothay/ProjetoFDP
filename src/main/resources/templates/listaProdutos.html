@@ -4,17 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista de Produtos</title>
     <link rel="stylesheet" th:href="@{/css/produto.css}">
     <link rel="stylesheet" th:href="@{/css/tela.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 
 <body>
     <div class="top">
         <div class="it">
-            <form method="POST" action="">
-                <button class="pg" type="submit"></button>
-            </form>
+            <a th:href="@{/listaProduto}"><img th:src="@{/images/logologo.png}" alt="Logo"></a>
         </div>
         <div class="it">
             <form th:action="@{/listaProduto}" method="GET">
@@ -28,22 +27,20 @@
             </form>
         </div>
     </div>
-    <div>
-        <h2>Usuário: [[${usuario.nome}]]</h2>
-        <h2 th:if="${usuario.gerente}">Cargo: Gerente</h2>
-        <h2 th:unless="${usuario.gerente}">Cargo: Cliente</h2>
-    </div>
-
-    <h1>Lista de Produtos</h1>
+    <h1 class="tituloPagina">Lista de Produtos</h1>
+    <p th:if="${mensagem}" class="sucesso">[[${mensagem}]]</p>
 
     <div class="tabela">
-
         <div class="produto" th:each="produto : ${produtos}">
             <img th:src="@{'/' + ${produto.image}}" alt="Imagem">
             <h3>[[${produto.nome}]]</h3>
             <p class="preco">R$ [[${produto.preco}]]</p>
             <form th:action="@{/produto/{id}(id=${produto.id})}" th:method="GET">
                 <button type="submit">Comprar</button>
+            </form>
+            <form th:action="@{/adicionar}" method="POST">
+                <input type="hidden" name="id" th:value="${produto.id}">
+                <button class="botao" type="submit">Adicionar ao carrinho</button>
             </form>
         </div>
     </div>
@@ -70,19 +67,22 @@
         </form>
 
     </div>
-    <form action="/carrinho" method="GET">
-        <button type="submit">Ver carrinho</button>
-    </form>
-
-    <form action="/logout" method="GET">
-        <button type="submit">Sair da conta</button>
-    </form>
-
-    <form th:if="${usuario.gerente}" action="/produto" method="GET">
-        <button type="submit">Cadastrar Produto</button>
-    </form>
-
-
+    <div class="fbnt">
+        <form action="/carrinho" method="GET">
+            <button type="submit">Ver carrinho</button>
+        </form>
+        <form action="/logout" method="GET">
+            <button type="submit">Sair da conta</button>
+        </form>
+        <form th:if="${usuario != null and usuario.gerente}" action="/produto" method="GET">
+            <button type="submit">Cadastrar Produto</button>
+        </form>
+    </div>
+    <footer>
+        <img th:src="@{/images/LogoNome.png}" alt="logo" width="300px">
+        <p class="desc">Siga-nos nas redes sociais</p>
+        <p class="ar">@petLife_company</p>
+    </footer>
 </body>
 
 </html>
