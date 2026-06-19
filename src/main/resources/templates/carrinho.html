@@ -87,8 +87,8 @@
 
     </div>
     <div class="fn">
-        <form th:method="POST" th:action="@{/comprar}">
-            <button class="fnc">Finalizar compra</button>
+        <form th:method="POST" th:action="@{/comprar} ">
+            <button class="fnc" th:disabled="${#lists.isEmpty(carrinho.itens)}" type="submit">Finalizar compra</button>
         </form>
     </div>
 

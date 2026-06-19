@@ -21,7 +21,18 @@ body{
     width: 55px;
     height: 55px;
     object-fit: contain;
-    margin: 0;
+
+    transform: scale(2.5); /* aumenta 50% */
+}
+.it a{
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden; /* esconde o que passar da caixa */
 }
 .inp{
     padding-left: 1rem;
