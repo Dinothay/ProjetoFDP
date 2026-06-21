@@ -34,7 +34,7 @@
         <div class="produto" th:each="produto : ${produtos}">
             <img th:src="@{'/' + ${produto.image}}" alt="Imagem">
             <h3>[[${produto.nome}]]</h3>
-            <p class="preco">R$ [[${produto.preco}]]</p>
+            <p class="preco">R$ [[${#numbers.formatDecimal(produto.preco, 1, 'POINT', 2, 'COMMA')}]]</p>
             <form th:action="@{/produto/{id}(id=${produto.id})}" th:method="GET">
                 <button type="submit">Comprar</button>
             </form>

@@ -42,7 +42,7 @@
 
                 <td>
                     <div class="preco">
-                        Valor: R$ [[${item.produto.preco}]]
+                        Valor: R$ [[${#numbers.formatDecimal(item.produto.preco, 1, 'POINT', 2, 'COMMA')}]]
                     </div>
                 </td>
 
@@ -77,7 +77,7 @@
             <p>Total:</p>
         </div>
         <div class="valor">
-            <p>R$[[${total}]]</p>
+            <p>R$[[${#numbers.formatDecimal(total, 1, 'POINT', 2, 'COMMA')}]]</p>
         </div>
         <div class="limpar">
             <form th:action="@{/limpar}" method="POST">

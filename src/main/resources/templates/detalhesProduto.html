@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Produto</title>
-    <link rel="stylesheet" th:href="@{/css/detalhes.css}">
     <link rel="stylesheet" th:href="@{/css/tela.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/detalhes.css}">
 </head>
-
 <body>
     <div class="top">
         <div class="it">
@@ -35,7 +33,7 @@
             <div class="txt">
                 <ul>
                     <li class="titulo">[[${produto.nome}]]</li>
-                    <li class="valor">R$ [[${produto.preco}]]</li>
+                    <li class="valor">R$ [[${#numbers.formatDecimal(produto.preco, 1, 'POINT', 2, 'COMMA')}]]</li>
                     <li class="descricao">Descrição: [[${produto.descricao}]]</li>
                     <li>
                         <form th:action="@{/comprarProduto}" method="POST">
