@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Criar Produto</title>
     <link rel="stylesheet" th:href="@{/css/cadastroLogin.css}">
 </head>
+
 <body>
     <div class="cdlg">
         <h3 class="t">Produto</h3>
-    <form th:action="@{/criarProduto}" th:method="POST" enctype="multipart/form-data">
-        <label class="lbl" for="name">Nome:</label>
-        <input class="inp" type="text" name="nome" id="nome">
-        <br>
-        <label class="lbl" for="name">Descrição:</label>
-        <input class="inp" type="text" name="descricao" id="descricao">
-        <br>
-        <label class="lbl" for="name">Preço:</label>
-        <input class="inp" type="number" name="preco" id="preco" step="0.01">
-        <br>
-        <label class="lbl" for="name">Imagem:</label>
-        <input class="inp" type="file" name="file"/>
-        <br>
-        <button type="submit">Criar</button>
-    </form>
-<a href="/listaProduto">Ir para Lista de Produto</a>    
-</div>
-    
+        <form th:action="@{/criarProduto}" th:method="POST" enctype="multipart/form-data">
+            <div class="campo">
+                <label class="lbl" for="nome">Nome</label>
+                <input class="inp" type="text" name="nome" id="nome">
+            </div>
+            <div class="campo">
+                <label class="lbl" for="descricao">Descrição</label>
+                <input class="inp" type="text" name="descricao" id="descricao">
+            </div>
+            <div class="campo">
+                <label class="lbl" for="preco">Preço</label>
+                <input class="inp" type="number" name="preco" id="preco" step="0.01">
+            </div>
+            <div class="campo">
+                <label class="lbl" for="file">Imagem</label>
+                <input class="inp" type="file" name="file" id="file">
+            </div>
+            <button type="submit">Criar</button>
+        </form>
+        <form th:action="@{/listaProduto}" method="GET">
+            <button type="submit">Ir para lista de produtos</button>
+        </form>
+    </div>
+
 </body>
+
 </html>

@@ -118,13 +118,12 @@ public class CarrinhoController {
         usuario.setCarrinho(carrinho);
         ItemCarrinho itemRemover = null;
         for (ItemCarrinho item : carrinho.getItens()) {
-            System.out.println("Produto no carrinho: " + item.getProduto().getId());
+
             if (item.getProduto().getId() == id) {
-                System.out.println("ENCONTROU O PRODUTO!");
-                System.out.println("ID do item: " + item.getId());
+                
                 itemCarrinhoRepository.delete(item.getId());
                 itemRemover = item;
-                System.out.println(item.getId());
+
                 break;
             }
         }
