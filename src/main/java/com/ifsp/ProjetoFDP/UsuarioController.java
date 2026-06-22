@@ -45,10 +45,8 @@ public class UsuarioController {
         usuario.setEmail(email);
         usuario.setSenha(senha);
         usuario.setGerente(false);
-
         int carrinhoId = carrinhoRepository.save();
         Carrinho carrinho = carrinhoRepository.findById(carrinhoId);
-
         usuario.setCarrinho(carrinho);
         usuarioRepository.save(usuario);
         return "redirect:/login";
