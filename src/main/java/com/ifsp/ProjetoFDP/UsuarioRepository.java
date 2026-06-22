@@ -73,16 +73,10 @@ public class UsuarioRepository {
     }
 
     public int findCarrinhoIdByEmail(String email) {
-
-    String sql =
-        "SELECT carrinho_id FROM usuario WHERE email = :email";
-
+    String sql ="SELECT carrinho_id FROM usuario WHERE email = :email";
     Query query = em.createNativeQuery(sql);
-
     query.setParameter("email", email);
-
     Number resultado = (Number) query.getSingleResult();
-
     return resultado.intValue();
 }
 }

@@ -18,14 +18,11 @@ public class ProdutoRepository {
     @Transactional
     public void save(Produto produto) {
         String sql = "INSERT INTO produto (nome, descricao, preco, image)VALUES (:nome, :descricao, :preco, :image)";
-
         Query query = em.createNativeQuery(sql);
-
         query.setParameter("nome", produto.getNome());
         query.setParameter("descricao", produto.getDescricao());
         query.setParameter("preco", produto.getPreco());
         query.setParameter("image", produto.getImage());
-
         query.executeUpdate();
     }
 
@@ -37,10 +34,8 @@ public class ProdutoRepository {
 
     public Produto findById(int id) {
         String sql = "SELECT * FROM produto WHERE id = :id";
-
         Query q = em.createNativeQuery(sql, Produto.class);
         q.setParameter("id", id);
-
         return (Produto) q.getSingleResult();
     }
 

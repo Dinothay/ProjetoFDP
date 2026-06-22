@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,8 +87,7 @@ public class ProdutoController {
     }
 
     @PostMapping("/produto/{id}/atualizar")
-    public String atualizarProduto(@PathVariable int id, @RequestParam String nome, @RequestParam String descricao,
-            @RequestParam Double preco) {
+    public String atualizarProduto(@PathVariable int id, @RequestParam String nome, @RequestParam String descricao,@RequestParam Double preco) {
         Produto produto = produtoRepository.findById(id);
         produto.setNome(nome);
         produto.setDescricao(descricao);
@@ -112,21 +110,16 @@ public class ProdutoController {
         model.addAttribute("temProxima", false);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
-
         return "listaProdutos";
     }
 
     @PostMapping("/comprarProduto")
     public String comprarAgora(@RequestParam int id, HttpSession session) {
-
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-
         if (usuario == null) {
             return "redirect:/login";
         }
-
         Produto produto = produtoRepository.findById(id);
-
         return "redirect:/listaProduto?compra=sucesso";
     }
 }
